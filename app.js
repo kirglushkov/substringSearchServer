@@ -2,11 +2,19 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 
+/**
+ * Поиск вхождения (первой найденной) подстроки в (большом) текстовом файле в последних N строках.
+ *
+ * @param {string} filePath -  Путь файла.
+ * @param {number} limit - Максимальное количество строк.
+ * @param {string} query - Подстрока.
+ * @return {Object} - Результат.
+ */
 function searchSubstringInLastLines(filePath, limit, query) {
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const lines = fileContent.split('\n');
 
-  // Search for the substring in the last N lines
+
   for (let i = lines.length - 1, j = 0; i >= 0 && j < limit; i--, j++) {
     if (lines[i].includes(query)) {
       return {
